@@ -1,0 +1,24 @@
+!!! 5
+%html
+  %head
+    %title SakuraMarket
+    %meta{name: "viewport", content: "width=device-width,initial-scale=1"}
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_include_tag "application", "data-turbo-track": "reload", type: "module"
+    %link{rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100,0,0"}
+
+  %body
+    - if notice
+      .bg-green-100.border-green-500.text-green-700.px-4.py-3.rounded{role: "alert"}
+        = notice
+    - if alert
+      .bg-red-100.border-red-500.text-red-700.px-4.py-3.rounded{role: "alert"}
+        = alert
+    %nav.flex.items-center.justify-between.flex-wrap.bg-green-400.p-6
+      .flex.items-center.text-white.mr-6
+        = link_to '管理画面', admin_root_path, class: 'text-xl'
+      .flex.items-center
+        = button_to 'ログアウト', destroy_admin_session_path, method: :delete, class: 'text-red-500 mr-4' if admin_signed_in?
+    = yield
